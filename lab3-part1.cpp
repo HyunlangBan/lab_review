@@ -28,7 +28,8 @@ int main(){
     else if((credits+30)>=30 && (credits+30)<=59){
         cout<<"You'll be a Sophomroe next year!"<<endl;
     }
-    if(major=="CSC"||major=="MTH"||major="BEN"||major=="BIO")||major=="ENV"||major=="BUS"){
+
+    if(major=="CSC"||major=="MTH"||major=="BEN"||major=="BIO"||major=="ENV"||major=="BUS"){
         cout<<"You're at home in LSB!"<<endl;
     }
 
