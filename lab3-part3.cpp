@@ -9,39 +9,46 @@ int main(){
     string item;
     float price;
     string category;
-    const int grocery_tax = 0;
-    const int prepared_food_tax = 7;
-    const float other_tax = 6.25;
+    float groceryTax;
+    float preparedFoodTax;
+    float otherTax;
+    const int grocery_tax_rates = 0;
+    const float prepared_food_tax_rates = 0.07;
+    const float other_tax_rates = 0.0625;
     float total;
 
 
     cout<<"Enter the item: "<<endl;
-    cin>>item;
+    getline(cin, item);
 
     cout<<"Enter the price: "<<endl;
     cin>>price;
 
     cout<<"Enter the category: (grocery, prepared food, other)"<<endl;
+    cin.ignore();
     getline(cin, category);
 
     if(category=="grocery"){
-        total = price + grocery_tax;
+        groceryTax = price * grocery_tax_rates; 
+        total = price + groceryTax;
         cout<<"item             "<<"$"<<price<<endl;
-        cout<<"TAX              "<<"$"<<grocery_tax<<endl;
+        cout<<"TAX              "<<"$"<<groceryTax<<endl;
         cout<<"--------------------------------------"<<endl;
         cout<<"TOTAL            "<<"$"<<total<<endl;
     }
-    if(category=="prepared food"){
-        total = price + prepared_food_tax;
+    else if(category=="prepared food"){
+        preparedFoodTax = price * prepared_food_tax_rates;
+        total = price + preparedFoodTax;
         cout<<"item             "<<"$"<<price<<endl;
-        cout<<"TAX              "<<"$"<<prepared_food_tax<<endl;
+        cout<<"TAX              "<<"$"<<preparedFoodTax<<endl;
         cout<<"--------------------------------------"<<endl;
         cout<<"TOTAL            "<<"$"<<total<<endl;
     }
     else{
-        total = price + other_tax;
+        otherTax = price * other_tax_rates;
+        total = price + otherTax;
         cout<<"item             "<<"$"<<price<<endl;
-        cout<<"TAX              "<<"$"<<other_tax<<endl;
+        cout<<"TAX              "<<"$"<<otherTax<<endl;
         cout<<"--------------------------------------"<<endl;
         cout<<"TOTAL            "<<"$"<<total<<endl;
     }
