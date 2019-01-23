@@ -33,7 +33,7 @@ int main()
         {
             cout << "Enter the index of item what you want to mark as done: " << endl;
             cin >> index;
-            if (index >= 0 && index < CAPACITY)
+            if (index<size && index >= 0 && index < CAPACITY)
             {
                 completed[index] = true;
             }
@@ -75,7 +75,7 @@ int main()
         {
             cout << "Enter the index of item what you want to delete: " << endl;
             cin >> index;
-            if (index >= 0 && index < CAPACITY)
+            if (index<size && index >= 0 && index < CAPACITY)
             {
                 for (int i = (index + 1); i < size; i++)
                 {
