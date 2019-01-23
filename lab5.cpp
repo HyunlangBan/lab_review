@@ -26,6 +26,7 @@ int main()
             }
             cout << "Add an item to list: " << endl;
             getline(cin, toDo[size]);
+            completed[size]=false;
             size++;
         }
         else if (userChoice == 'm')
