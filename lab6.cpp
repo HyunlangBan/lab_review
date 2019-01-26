@@ -1,22 +1,27 @@
 //============================================================================
 // File name    : lab7.cpp
 //============================================================================
- 
+
 #include <iostream>
 using namespace std;
- 
+
 // The game world is a grid; these specify the dimensions of that grid.
 const int ROWS = 10;
 const int COLS = 10;
-enum GameStatus {ONGOING, WON, LOST}; 
- 
+enum GameStatus
+{
+    ONGOING,
+    WON,
+    LOST
+};
+
 // Function declarations.
 void playGame(int playerRow, int playerCol);
 char getMove(char world[ROWS][COLS], int playerRow, int playerCol);
 GameStatus updateWorld(char direction, char world[ROWS][COLS],
-                 int &playerRow, int &playerCol);
+                       int &playerRow, int &playerCol);
 void printWorld(char world[ROWS][COLS]);
- 
+
 /**
  * Main. Creates a world grid and lets the player move through it.
  *
@@ -25,15 +30,15 @@ void printWorld(char world[ROWS][COLS]);
 int main()
 {
     // These keep track of where the player currently is, indicated by a 'P'.
-    int playerRow=8;
-    int playerCol=1;
- 
+    int playerRow = 8;
+    int playerCol = 1;
+
     // Start the game.
     playGame(playerRow, playerCol);
- 
+
     return 0;
 }
- 
+
 /**
  * Creates a grid world and then interacts with the user as they choose moves
  * to navigate through the grid world to the goal.
@@ -50,43 +55,45 @@ void playGame(int playerRow, int playerCol)
     // G -- the goal; the user must reach this spot to win.
     // (blank) -- an open spot that the player can move into.
     // P -- the player (not on the initial grid; see below).
-    char world[ROWS][COLS] = {  
-        {'X','X','X','X','X','X','X','X','X','X'},
-        {'X',' ',' ',' ',' ',' ',' ',' ','G','X'},
-        {'X','T',' ',' ',' ',' ',' ',' ',' ','X'},
-        {'X',' ',' ',' ',' ',' ',' ',' ',' ','X'},
-        {'X',' ',' ','T',' ',' ',' ',' ',' ','X'},
-        {'X',' ',' ',' ',' ','T',' ',' ',' ','X'},
-        {'X','E',' ',' ',' ',' ',' ',' ',' ','X'},
-        {'X',' ',' ','E',' ',' ',' ',' ',' ','X'},
-        {'X',' ',' ',' ',' ',' ',' ',' ',' ','X'},
-        {'X','X','X','X','X','X','X','X','X','X'}
-    };
- 
-    char nextMove; // Holds the user's next move.
+    char world[ROWS][COLS] = {
+        {'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X'},
+        {'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'G', 'X'},
+        {'X', 'T', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X'},
+        {'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X'},
+        {'X', ' ', ' ', 'T', ' ', ' ', ' ', ' ', ' ', 'X'},
+        {'X', ' ', ' ', ' ', ' ', 'T', ' ', ' ', ' ', 'X'},
+        {'X', 'E', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X'},
+        {'X', ' ', ' ', 'E', ' ', ' ', ' ', ' ', ' ', 'X'},
+        {'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X'},
+        {'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X'}};
+
+    char nextMove;                   // Holds the user's next move.
     GameStatus gameStatus = ONGOING; // Indicates if the game is still continuing
- 
+
     // Place the player.
     world[playerRow][playerCol] = 'P';
- 
+
     // Keep playing until the game is over...
-    while(gameStatus == ONGOING)
+    while (gameStatus == ONGOING)
     {
         // Show the player the state of the world.
         printWorld(world);
- 
+
         // Get the direction in which the player would like to move.
         nextMove = getMove(world, playerRow, playerCol);
- 
+
         // Apply the move to the world and see if the game is still active.
         gameStatus = updateWorld(nextMove, world, playerRow, playerCol);
     }
-    
+
     // Let the player know if they won or lost.
     cout << string(80, '*') << endl;
-    if(gameStatus == WON){
+    if (gameStatus == WON)
+    {
         cout << "                        Congratulations, you won!" << endl;
-    } else {
+    }
+    else
+    {
         cout << "                           GAME OVER. YOU LOSE." << endl;
     }
     cout << string(80, '*') << endl;
@@ -112,20 +119,23 @@ void playGame(int playerRow, int playerCol)
 void printWorld(char world[ROWS][COLS])
 {
     // TODO #1: complete this function.
-    // HINT, here's some pseudo code. The spacing is important.
-    
-    // print some leading spaces
-    // for col in columns:
-    //      print column index
-    // print newline
-    // for row in rows
-    //      print row index
-    //      for col in columns
-    //          print map[row][col]
-    //      print a new line at the end of a row
+    cout << " ";
+    for (int i = 0; i < COLS; i++)
+    {
+        cout << " " << i;
+    }
+    cout << endl;
+    for (int k = 0; k < ROWS; k++)
+    {
+        cout << k << " ";
+        for (int r = 0; r < COLS; r++)
+        {
+            cout << world[k][r] << " ";
+        }
+        cout << endl;
+    }
 }
 
- 
 /**
  * Shows the user the possible valid moves from his/her current position, and
  * reads things a move from the user ([u]p, [d]own, [l]eft, or [r]ight).
@@ -138,30 +148,87 @@ void printWorld(char world[ROWS][COLS])
 char getMove(char world[ROWS][COLS], int playerRow, int playerCol)
 {
     char move;
- 
-    // TODO #2: Add code to print all the currently valid moves 
-    // (u, d, l, r) based on where the player is and what's around them.
-    cout << "Hero, where would you like to go? Valid directions: " << endl;
-    // if playerRow-1 != 'X' then print player can move up
-    // if playerRow+1 != 'X' then print player can move down
-    // if playerCol-1 != 'X' then print player can move to left
-    // if playerCol+1 != 'X' then print player can move to right
 
-    // Read in move from user. 
-    cin >> move;
-    
-    // TODO #3: Add code to validate that the user chose a valid move. If
-    // not, reprompt until a valid move is provided.
+    while (true)
+    {
+        // TODO #2: Add code to print all the currently valid moves
+        // (u, d, l, r) based on where the player is and what's around them.
+        cout << "Hero, where would you like to go? Valid directions: " << endl;
+        // if playerRow-1 != 'X' then print player can move up
+        // if playerRow+1 != 'X' then print player can move down
+        // if playerCol-1 != 'X' then print player can move to left
+        // if playerCol+1 != 'X' then print player can move to right
+        if (world[playerRow - 1][playerCol] != 'X')
+        {
+            cout << "up" << endl;
+        }
+        if (world[playerRow + 1][playerCol] != 'X')
+        {
+            cout << "down" << endl;
+        }
+        if (world[playerRow][playerCol - 1] != 'X')
+        {
+            cout << "left" << endl;
+        }
+        if (world[playerRow][playerCol + 1] != 'X')
+        {
+            cout << "rignt" << endl;
+        }
 
-    //use while(true) from TODO#2 to before return
-    //if move == 'u' && playerRow-1 =='X' then print that's not validate move and continue
-    //if move == 'd' && playerRow+1 == 'X' then print that's not validate move and continue
-    //if move == 'l' && playerCol-1 == 'X' then print that's not validate move and continue
-    //if move == 'r' && playerCow+1 == 'X' then print that's not validate move and continue 
+        // Read in move from user.
+        cin >> move;
 
+        // TODO #3: Add code to validate that the user chose a valid move. If
+        // not, reprompt until a valid move is provided.
+
+        if (move == 'u')
+        {
+            if (world[playerRow - 1][playerCol] == 'X')
+            {
+                cout << "That's not validate move" << endl;
+            }
+            else
+            {
+                break;
+            }
+        }
+        if (move == 'd')
+        {
+            if (world[playerRow + 1][playerCol] == 'X')
+            {
+                cout << "That's not validate move" << endl;
+            }
+            else
+            {
+                break;
+            }
+        }
+        if (move == 'l')
+        {
+            if (world[playerRow][playerCol - 1] == 'X')
+            {
+                cout << "That's not validate move" << endl;
+            }
+            else
+            {
+                break;
+            }
+        }
+        if (move == 'r')
+        {
+            if (world[playerRow][playerCol + 1] == 'X')
+            {
+                cout << "That's not validate move" << endl;
+            }
+            else
+            {
+                break;
+            }
+        }
+    }
     return move;
 }
- 
+
 /**
  * Moves the player the direction indicated; updates the world grid and the
  * player's current row and column.
@@ -175,30 +242,99 @@ char getMove(char world[ROWS][COLS], int playerRow, int playerCol)
  * @return The game status -- one of ONGOING (everything is fine), WON (the 
  *         player reached the goal), or LOST (the player hit an enemy).
  */
-GameStatus updateWorld(char direction, char world[][COLS],
-                 int &playerRow, int &playerCol)
+GameStatus updateWorld(char direction, char world[][COLS], int &playerRow, int &playerCol)
 {
     GameStatus status = ONGOING;
 
     // TODO #4: implement this function.
-    // if direction == 'u' then playerRow--; and check world[palyerRow][playerCol]
-    //      if world[palyerRow][playerCol] =='G' then game status = 'WON'and update it to 'P'
-    //      else if world[palyerRow][playerCol] =='E' then game status = 'LOST'and update it to 'P'
-    //      else if world[palyerRow][playerCol] ==' ' or 'T' then game status = 'ONGOING'and update it to 'P'
-    // if direction == 'd' then playerRow++; and check world[palyerRow][playerCol]
-    //      if world[palyerRow][playerCol] =='G' then game status = 'WON'and update it to 'P'
-    //      else if world[palyerRow][playerCol] =='E' then game status = 'LOST'and update it to 'P'
-    //      else if world[palyerRow][playerCol] ==' ' or 'T' then game status = 'ONGOING'and update it to 'P'
-    // if direction == 'l' then playerCol--; and check world[palyerRow][playerCol]
-    //      if world[palyerRow][playerCol] =='G' then game status = 'WON'and update it to 'P'
-    //      else if world[palyerRow][playerCol] =='E' then game status = 'LOST'and update it to 'P'
-    //      else if world[palyerRow][playerCol] ==' ' or 'T' then game status = 'ONGOING'and update it to 'P'
-    // if direction == 'r' then playerCol++; and check world[palyerRow][playerCol]
-    //      if world[palyerRow][playerCol] =='G' then game status = 'WON'and update it to 'P'
-    //      else if world[palyerRow][playerCol] =='E' then game status = 'LOST'and update it to 'P'
-    //      else if world[palyerRow][playerCol] ==' ' or 'T' then game status = 'ONGOING'and update it to 'P'            
+    if (direction == 'u')
+    {
+        playerRow = playerRow - 1;
+        if (world[playerRow][playerCol] == 'G')
+        {
+            status = WON;
+            world[playerRow][playerCol] = 'P';
+            world[playerRow + 1][playerCol] = ' ';
+        }
+        else if (world[playerRow][playerCol] == 'E')
+        {
+            status = LOST;
+            world[playerRow][playerCol] = 'P';
+            world[playerRow + 1][playerCol] = ' ';
+        }
+        else if (world[playerRow][playerCol] == ' ' || world[playerRow][playerCol] == 'T')
+        {
+            status = ONGOING;
+            world[playerRow][playerCol] = 'P';
+            world[playerRow + 1][playerCol] = ' ';
+        }
+    }
 
+    if (direction == 'd')
+    {
+        playerRow = playerRow + 1;
+        if (world[playerRow][playerCol] == 'G')
+        {
+            status = WON;
+            world[playerRow][playerCol] = 'P';
+            world[playerRow - 1][playerCol] = ' ';
+        }
+        else if (world[playerRow][playerCol] == 'E')
+        {
+            status = LOST;
+            world[playerRow][playerCol] = 'P';
+            world[playerRow - 1][playerCol] = ' ';
+        }
+        else if (world[playerRow][playerCol] == ' ' || world[playerRow][playerCol] == 'T')
+        {
+            status = ONGOING;
+            world[playerRow][playerCol] = 'P';
+            world[playerRow - 1][playerCol] = ' ';
+        }
+    }
+    if (direction == 'l')
+    {
+        playerCol = playerCol - 1;
+        if (world[playerRow][playerCol] == 'G')
+        {
+            status = WON;
+            world[playerRow][playerCol] = 'P';
+            world[playerRow][playerCol + 1] = ' ';
+        }
+        else if (world[playerRow][playerCol] == 'E')
+        {
+            status = LOST;
+            world[playerRow][playerCol] = 'P';
+            world[playerRow][playerCol + 1] = ' ';
+        }
+        else if (world[playerRow][playerCol] == ' ' || world[playerRow][playerCol] == 'T')
+        {
+            status = ONGOING;
+            world[playerRow][playerCol] = 'P';
+            world[playerRow][playerCol + 1] = ' ';
+        }
+    }
+    if (direction == 'r')
+    {
+        playerCol = playerCol + 1;
+        if (world[playerRow][playerCol] == 'G')
+        {
+            status = WON;
+            world[playerRow][playerCol] = 'P';
+            world[playerRow][playerCol - 1] = ' ';
+        }
+        else if (world[playerRow][playerCol] == 'E')
+        {
+            status = LOST;
+            world[playerRow][playerCol] == 'P';
+            world[playerRow][playerCol - 1] = ' ';
+        }
+        else if (world[playerRow][playerCol] == ' ' || world[playerRow][playerCol] == 'T')
+        {
+            status = ONGOING;
+            world[playerRow][playerCol] = 'P';
+            world[playerRow][playerCol - 1] = ' ';
+        }
+    }
     return status;
 }
-
-
