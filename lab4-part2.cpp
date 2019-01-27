@@ -1,6 +1,8 @@
 #include <iostream>
 using namespace std;
 
+float average(int &num, int &numWords);
+
 int main(){
     string userInput;
     int numVowels=0, numCons= 0;
@@ -34,12 +36,13 @@ int main(){
     cout<<"The number of vowels: "<<numVowels<<endl;
     cout<<"The number of consonants: "<<numCons<<endl;
     cout<<"The number of words: "<<numWords<<endl;
-
-    averageOfCons = numCons/(numWords*1.0);
-    averageOfVowels = numVowels/(numWords*1.0);
-
-    cout<<"The average of vowels: "<<averageOfVowels<<endl;
-    cout<<"The average of consonants: "<<averageOfCons<<endl;
+    cout<<"The average of vowels: "<<average(numVowels, numWords)<<endl;
+    cout<<"The average of consonants: "<<average(numCons, numWords)<<endl;
 
     return 0;
+}
+
+float average(int &num, int &numWords){
+    float average = num/(numWords*1.0);
+    return average;
 }
