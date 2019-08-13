@@ -1,3 +1,5 @@
+//trial번의 snakeEyes가 나오기까지 평균 몇번을 던졌는가?
+
 #include <iostream>
 #include <stdlib.h>
 #include <time.h>
