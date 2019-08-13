@@ -1,4 +1,4 @@
-//trial번의 snakeEyes가 나오기까지 평균 몇번을 던졌는가?
+//각 trial(시도)에서 몇번의 주사위를 던졌을 때 sankeEyes가 나왔는지의 평균 
 
 #include <iostream>
 #include <stdlib.h>
